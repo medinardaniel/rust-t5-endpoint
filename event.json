@@ -1,0 +1,41 @@
+{
+  "resource": "/{proxy+}",
+  "path": "/examplepath",
+  "httpMethod": "POST",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "queryStringParameters": {
+    "name": "world"
+  },
+  "pathParameters": {
+    "proxy": "examplepath"
+  },
+  "stageVariables": {
+    "baz": "qux"
+  },
+  "requestContext": {
+    "accountId": "123456789012",
+    "resourceId": "123456",
+    "stage": "prod",
+    "requestId": "c6af9ac6-7b61-11e6-9a41-93e8deadbeef",
+    "identity": {
+      "cognitoIdentityPoolId": null,
+      "accountId": null,
+      "cognitoIdentityId": null,
+      "caller": null,
+      "apiKey": null,
+      "sourceIp": "127.0.0.1",
+      "cognitoAuthenticationType": null,
+      "cognitoAuthenticationProvider": null,
+      "userArn": null,
+      "userAgent": "Custom User Agent String",
+      "user": null
+    },
+    "resourcePath": "/{proxy+}",
+    "httpMethod": "POST",
+    "apiId": "1234567890"
+  },
+  "body": "{\"command\": \"Translate to Spanish: Hi how are you?\"}",
+  "isBase64Encoded": false
+}
