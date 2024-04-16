@@ -1,21 +1,26 @@
-# Start with a Rust base image to build our application
+# Use the official Rust image for the build stage
 FROM rust:latest as builder
 
-# Create a new binary project
-WORKDIR /usr/src/rust-t5-endpoint
+# Set an environment variable for the application name
+ENV APP rust_lambda_t5
 
-# Copy the source code into the container
-COPY ./src ./src
-COPY Cargo.toml Cargo.lock ./
+# Set the working directory in the builder stage
+WORKDIR /usr/src/$APP
 
-# Build the application in release mode
+# Copy the entire project to the working directory in the builder stage
+COPY . .
+
+# Build the application
 RUN cargo build --release
 
-# Now, start with a fresh image to keep it clean and small
-FROM public.ecr.aws/lambda/provided:al2
+# Output the contents of the release directory to verify the build
+RUN ls -la /usr/src/$APP/target/release/
 
-# Copy the compiled binary from the builder image to the runtime image
-COPY --from=builder /usr/src/rust-t5-endpoint/target/release/rust-t5-endpoint /var/task/
+# Start a new stage from scratch to minimize the final image size
+FROM public.ecr.aws/lambda/provided:al2 as runtime
 
-# Set the handler executable (which is the binary name by default)
-CMD ["rust-t5-endpoint"]
+# Copy the built executable from the builder stage to the Lambda runtime directory
+COPY --from=builder /usr/src/$APP/target/release/rust_lambda_t5 /var/task/bootstrap
+
+# Set the CMD to your handler (bootstrap file in Lambda custom runtime)
+CMD ["./bootstrap"]
