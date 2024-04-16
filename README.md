@@ -1,6 +1,6 @@
-# Rust AWS Lambda Function Deployment
+# Rust AWS Lambda T5 Endpoint
 
-This document outlines the development, Dockerization, deployment, and operational details of a Rust-based AWS Lambda function. The function is designed to interact with a transformer model and is accessible via an API Gateway HTTP trigger.
+This document outlines the development, Dockerization, deployment, and operational details of a Rust-based AWS Lambda function T5 endpoint. The function is designed to interact with the T5 transformer model and is accessible via an API Gateway HTTP trigger.
 
 ## Dockerization of the Lambda Function
 
@@ -11,6 +11,7 @@ The Rust function was containerized using Docker to ensure a consistent runtime 
 1. **Dockerfile Creation**: A Dockerfile was created to define the environment setup, Rust code compilation, and output binary configuration.
 2. **Building the Image**: The Docker image is built using `docker build -t rust-lambda-t5 .`.
 3. **Creating the Container**: The container is based on the Amazon Linux 2 environment to match Lambda's execution environment.
+
 ![Lambda Invocation](lambda-invocation.png)
 
 ## Function Logic
